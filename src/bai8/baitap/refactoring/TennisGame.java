@@ -1,75 +1,62 @@
 package bai8.baitap.refactoring;
-
 public class TennisGame {
-    public static String getScore(String FIRST_PLAYER_NAME, String SECOND_PLAYER_NAME, int firstPlayerScore, int secondPlayerScore) {
-        StringBuilder score = new StringBuilder();
-        int initScore =0;
-        if (firstPlayerScore==secondPlayerScore)
+
+    public static String getScore(String player1Name, String player2Name, int m_score1, int m_score2) {
+        String score = "";
+        int tempScore=0;
+        if (m_score1==m_score2)
         {
-            switch (firstPlayerScore)
+            switch (m_score1)
             {
                 case 0:
-                    score = new StringBuilder("Love-All");
+                    score = "Love-All";
                     break;
                 case 1:
-                    score = new StringBuilder("Fifteen-All");
+                    score = "Fifteen-All";
                     break;
                 case 2:
-                    score = new StringBuilder("Thirty-All");
+                    score = "Thirty-All";
                     break;
                 case 3:
-                    score = new StringBuilder("Forty-All");
+                    score = "Forty-All";
                     break;
                 default:
-                    score = new StringBuilder("Deuce");
+                    score = "Deuce";
                     break;
 
             }
         }
-        else {
-            boolean checkScore = firstPlayerScore >= 4 || secondPlayerScore >= 4;
-            if (checkScore) {
-                score = getWinnerScore(firstPlayerScore, secondPlayerScore);
-            }
-            else {
-                getScore(firstPlayerScore, secondPlayerScore, score);
-            }
-        }
-        return score.toString();
-    }
-
-    private static void getScore(int firstPlayerScore, int secondPlayerScore, StringBuilder score) {
-        int initScore;
-        for (int i = 1; i<3; i++)
+        else if (m_score1>=4 || m_score2>=4)
         {
-            if (i==1) initScore  = firstPlayerScore;
-            else { score.append("-"); initScore  = secondPlayerScore;}
-            switch(initScore )
+            int minusResult = m_score1-m_score2;
+            if (minusResult==1) score ="Advantage player1";
+            else if (minusResult ==-1) score ="Advantage player2";
+            else if (minusResult>=2) score = "Win for player1";
+            else score ="Win for player2";
+        }
+        else
+        {
+            for (int i=1; i<3; i++)
             {
-                case 0:
-                    score.append("Love");
-                    break;
-                case 1:
-                    score.append("Fifteen");
-                    break;
-                case 2:
-                    score.append("Thirty");
-                    break;
-                case 3:
-                    score.append("Forty");
-                    break;
+                if (i==1) tempScore = m_score1;
+                else { score+="-"; tempScore = m_score2;}
+                switch(tempScore)
+                {
+                    case 0:
+                        score+="Love";
+                        break;
+                    case 1:
+                        score+="Fifteen";
+                        break;
+                    case 2:
+                        score+="Thirty";
+                        break;
+                    case 3:
+                        score+="Forty";
+                        break;
+                }
             }
         }
-    }
-
-    private static StringBuilder getWinnerScore(int firstPlayerScore, int secondPlayerScore) {
-        StringBuilder score;
-        int minusResult = firstPlayerScore - secondPlayerScore;
-
-        if (minusResult==1) score = new StringBuilder("Advantage player1");
-        else if (minusResult ==-1) score = new StringBuilder("Advantage player2");
-        else if (minusResult>=2) score = new StringBuilder("Win for player1");
-        else score = new StringBuilder("Win for player2");
         return score;
     }
 }
