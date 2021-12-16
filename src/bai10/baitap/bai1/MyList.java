@@ -67,9 +67,11 @@ public class MyList<E> {
         return (E) elements[index];
     }
     public void clear(){
-        for (int i = 0; i < elements.length; i++) {
-            elements[i] = null;
-        }
+//        for (int i = 0; i < elements.length; i++) {
+//            elements[i] = null;
+//        }
+        elements = new Object[DEFAULT_CAPACITY];
+        size = 0;
     }
     public boolean checkIndex(int index){
         if (index < 0 && index > elements.length)
